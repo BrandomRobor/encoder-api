@@ -1,4 +1,4 @@
-from .db import initialize_db
+from db import initialize_db
 from flask import Flask
 
 app = Flask(__name__)
