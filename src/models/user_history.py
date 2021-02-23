@@ -7,4 +7,4 @@ class UserHistoryEntry(db.Document):
     }
 
     user_id = db.ObjectIdField()
-    history = db.ListField(HistoryEntry())
+    history = db.ListField(db.EmbeddedDocumentField(HistoryEntry))
