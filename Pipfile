@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 flask = "~=1.1.2"
+flask-mongoengine = "~=1.0.0"
 
 [dev-packages]
 python-dotenv = "*"
