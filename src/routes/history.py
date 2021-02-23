@@ -37,3 +37,15 @@ def add_to_history():
         return Response(status=500)
     else:
         return Response(status=201)
+
+
+@history.route("/api/history", methods=["DELETE"])
+@jwt_required()
+def delete_from_history():
+    try:
+        UserHistoryEntry.objects(user_id=get_jwt_identity()).update_one(
+            pull__history__entry_id=request.json["entry_id"])
+    except:
+        return Response(status=500)
+    else:
+        return Response(status=204)
