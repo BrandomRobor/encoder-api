@@ -8,7 +8,6 @@ flask = "~=1.1.2"
 flask-mongoengine = "~=1.0.0"
 
 [dev-packages]
-python-dotenv = "*"
 
 [requires]
 python_version = "3.9"
