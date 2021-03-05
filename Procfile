@@ -1,1 +1,1 @@
-worker: flask run
+web: gunicorn --pythonpath src app:app
