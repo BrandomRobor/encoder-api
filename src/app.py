@@ -24,4 +24,4 @@ app.register_blueprint(history)
 app.register_blueprint(users)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
