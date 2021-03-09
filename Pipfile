@@ -7,6 +7,7 @@ name = "pypi"
 flask = "~=1.1.2"
 flask-mongoengine = "~=1.0.0"
 flask-jwt-extended = "~=4.0.2"
+flask-mail = "~=0.9.1"
 
 [dev-packages]
 

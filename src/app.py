@@ -1,15 +1,20 @@
 from flask_jwt_extended import JWTManager
 from routes.history import history
+from mail import initialize_mail
 from routes.users import users
 from db import initialize_db
-
 from flask import Flask
-import os
+from os import environ
 
 app = Flask(__name__)
-app.config["MONGODB_HOST"] = os.environ.get("MONGODB_HOST")
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config["MONGODB_HOST"] = environ.get("MONGODB_HOST")
+app.config["SECRET_KEY"] = environ.get("SECRET_KEY")
+app.config["MAIL_SERVER"] = environ.get("MAIL_SERVER")
+app.config["MAIL_PORT"] = environ.get("MAIL_PORT")
+app.config["MAIL_USERNAME"] = environ.get("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = environ.get("MAIL_PASSWORD")
 initialize_db(app)
+initialize_mail(app)
 jwt = JWTManager(app)
 
 app.register_blueprint(history)
