@@ -2,8 +2,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 from flask import Blueprint, request, Response
 from models.user import UserModel
+from flask_mail import Message
+from threading import Thread
+from mail import mail, send_message_async
 
 users = Blueprint(__name__, __name__)
+
 
 @users.route("/api/user", methods=["PUT"])
 def register_user():
@@ -11,12 +15,17 @@ def register_user():
 
     body["password"] = generate_password_hash(body["password"])
 
-    try:
-        UserModel(**body).save()
-    except:
-        return Response(status=500)
-    else:
-        return Response(status=201)
+    new_user = UserModel(**body)
+    new_user.save()
+    confirm_mail = Message(
+        subject="Mail verification",
+        recipients=[body["email"]],
+        body="Please confirm your address by clicking this link: " +
+        str(new_user.id)
+    )
+
+    send_message_async(confirm_mail)
+    return Response(status=201)
 
 
 @users.route("/api/user", methods=["POST"])
